@@ -1,0 +1,19 @@
+{
+  "name": "mock",
+  "version": "1.0.0",
+  "description": "mock data",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "keywords": [
+    "mock"
+  ],
+  "author": "litingting0710@qq.com",
+  "license": "ISC",
+  "dependencies": {
+    "connect": "^3.6.6",
+    "mockjs": "^1.0.1-beta3",
+    "request": "^2.83.0"
+  }
+}
