@@ -8,17 +8,18 @@ let app = connect();
 
 app.use('/config', (req, res, next) => {
 	req.on('data', s => {
+		console.log(JSON.parse(s.toString()))
 		let config = '';
 		try{
 			config = JSON.parse(s.toString())
 		}catch(e) {
-			res.end(e);
+			res.end(JSON.stringify(e));
+			return;
 		}
-		
 		mockConfigs[config.url] = config.mockConfig;
 		configMock(config.url);
+		res.end('ok')
 	})
-	res.end('ok')
 });
 
 function configMock(url) {
