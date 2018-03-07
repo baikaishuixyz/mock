@@ -8,20 +8,25 @@ let app = connect();
 
 app.use('/config', (req, res, next) => {
 	req.on('data', s => {
-		let config = JSON.parse(s.toString())
+		let config = '';
+		try{
+			config = JSON.parse(s.toString())
+		}catch(e) {
+			res.end(e);
+		}
+		
 		mockConfigs[config.url] = config.mockConfig;
 		configMock(config.url);
 	})
 	res.end('ok')
 });
 
-
 function configMock(url) {
 	app.use(url, (req, res, next) => {
 		let data = mock.mock(mockConfigs[url]);
+		res.writeHead(200, { 'Content-Type': 'application/json;charset=utf-8' });
 		res.end(JSON.stringify(data));
 	})
 }
 
-
-http.createServer(app).listen(3000);
+http.createServer(app).listen(80);
